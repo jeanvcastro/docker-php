@@ -1,0 +1,6 @@
+.env
+apps/*/
+mysql/*
+nginx/*
+php/*/*
+redis/*

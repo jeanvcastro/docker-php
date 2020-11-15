@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: app
+    restart: "no"
+    tty: true
+    environment:
+      PHP_IDE_CONFIG: serverName=xdebug-docker
+      XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_port=${REMOTE_PORT}
+      ROOT_PASSWORD: ${ROOT_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD}
+      TIMEZONE: ${TIMEZONE}
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3306:3306"
+      - "6379:6379"
+    volumes:
+      - ./mysql/mysqld.conf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - dbdata:/var/lib/mysql/
+      - ./nginx/:/etc/nginx/sites-enabled/
+      - ./apps/:/var/www
+      - ./php/fpm/php.ini:/etc/php/7.4/fpm/php.ini
+      - ./php/cli/php.ini:/etc/php/7.4/cli/php.ini
+      - ./php/mods-available/xdebug.ini:/etc/php/7.4/mods-available/xdebug.ini
+      - ./redis/redis.conf:/etc/redis/redis.conf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
