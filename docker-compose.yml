@@ -9,7 +9,7 @@ services:
       PHP_IDE_CONFIG: serverName=xdebug-docker
       XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_port=${REMOTE_PORT}
       ROOT_PASSWORD: ${ROOT_PASSWORD}
-      DB_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       TIMEZONE: ${TIMEZONE}
       SERVICE_NAME: app
       SERVICE_TAGS: dev
