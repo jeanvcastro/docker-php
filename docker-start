@@ -42,6 +42,7 @@ service redis-server restart
 
 service php7.4-fpm restart
 
-echo "Starting nginx in foreground..."
-nginx -g 'daemon off;'
+service nginx restart
+
+bash
 
