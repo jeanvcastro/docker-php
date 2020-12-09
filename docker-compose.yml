@@ -10,7 +10,7 @@ services:
       XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_port=${REMOTE_PORT}
       ROOT_PASSWORD: ${ROOT_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      TIMEZONE: ${TIMEZONE}
+      TZ: ${TZ}
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www

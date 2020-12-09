@@ -4,8 +4,8 @@ FROM ubuntu:20.04
 RUN echo 'root:${ROOT_PASSWORD}' | chpasswd
 
 # Set the timezone
-ENV TIMEZONE=${TIMEZONE}
-RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
+ENV TZ=${TZ}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Set working directory
 WORKDIR /var/www
