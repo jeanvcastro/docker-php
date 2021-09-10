@@ -1,8 +1,8 @@
-# docker-php
+# Bem vindo ao docker-php 👋
 
 ## Introdução
 
-É uma imagem do Docker baseada no Ubuntu 20.04 pré-configurada com tudo que é necessário para rodar os projetos no ambiente de **desenvolvimento**.
+Ambiente de desenvolvimento PHP/Laravel 🐘 baseado em Docker 🐳.
 
 ## Estrutura de Pastas
 
@@ -38,3 +38,6 @@ No fim do Dockerfile existe uma instrução para executar o script `docker-start
 ## Instalação
 
 Para iniciar é só executar `docker-compose up --build` e começar a programar!
+
+***
+Desenvolvido com ❤️ por [@jeanvcastro](https://github.com/jeanvcastro)
