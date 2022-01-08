@@ -1,6 +1,6 @@
 .env
 apps/*/
-mysql/*
 nginx/*
-php/*/*
-redis/*
+!nginx/default.conf.example
+mysql/*
+!mysql/.gitkeep

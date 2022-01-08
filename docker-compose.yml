@@ -1,41 +1,65 @@
 version: '3'
 services:
-  app:
+  php-nodejs:
     build: .
-    container_name: app
-    restart: "no"
+    container_name: php-nodejs
+    image: docker-php
     tty: true
-    environment:
-      PHP_IDE_CONFIG: serverName=xdebug-docker
-      XDEBUG_CONFIG: remote_host=${REMOTE_HOST} remote_port=${REMOTE_PORT}
-      ROOT_PASSWORD: ${ROOT_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      TZ: ${TZ}
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
     ports:
-      - "80:80"
-      - "443:443"
-      - "3306:3306"
-      - "6379:6379"
+      - 9000:9000
+    environment:
+      XDEBUG_MODE: ${XDEBUG_MODE:-off}
+      XDEBUG_CONFIG: ${XDEBUG_CONFIG}
+      XDEBUG_SESSION: ${XDEBUG_SESSION}
+      TZ: ${TZ:-UTC}
     volumes:
-      - ./mysql/mysqld.conf:/etc/mysql/mysql.conf.d/mysqld.cnf
-      - dbdata:/var/lib/mysql/
-      - ./nginx/:/etc/nginx/sites-enabled/
-      - ./apps/:/var/www
-      - ./php/fpm/php.ini:/etc/php/7.4/fpm/php.ini
-      - ./php/cli/php.ini:/etc/php/7.4/cli/php.ini
-      - ./php/mods-available/xdebug.ini:/etc/php/7.4/mods-available/xdebug.ini
-      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ./apps:/var/www
     networks:
       - app-network
 
-#Docker Networks
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./apps:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - app-network
+
+  mysql:
+    image: 'mysql:8.0'
+    container_name: mysql
+    ports:
+      - '${DB_PORT:-3306}:3306'
+    environment:
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_USER: '${DB_USERNAME}'
+    volumes:
+      - 'app-mysql:/var/lib/mysql'
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'app-redis:/data'
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
-#Volumes
+
 volumes:
-  dbdata:
+  app-mysql:
+    driver: local
+  app-redis:
     driver: local

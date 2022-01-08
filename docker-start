@@ -2,7 +2,7 @@
 
 echo "Checking projects dependencies..."
 for folder in /var/www/*/; do
-    echo "Project: $folder"
+    echo "Folder: $folder"
 
     if [ -f "$folder/composer.json" ]; then
         if [ -d "$folder/vendor" ]; then
@@ -12,7 +12,11 @@ for folder in /var/www/*/; do
             fi
         fi
         composer install -d "$folder"
-    elif [ -f "$folder/package.json" ]; then
+    else
+        echo "This is not a project managed by composer. Skipping ..."
+    fi
+
+    if [ -f "$folder/package.json" ]; then
         if [ -d "$folder/node_modules" ]; then
             if [ $(ls -A $folder/node_modules | wc -l) -ne 0 ]; then
                 echo "The dependencies have already been installed"
@@ -20,29 +24,13 @@ for folder in /var/www/*/; do
             fi
         fi
         npm i --prefix "$folder"
-        npm audit fix --prefix "$folder" --force
+        npm audit fix --prefix "$folder"
     else
-        echo "This is not a project managed by composer or npm. Skipping ..."
+        echo "This is not a project managed by npm. Skipping ..."
     fi
 done
 
-echo "Restarting services..."
-
-service mysql restart
-echo "Checking MySQL authentication method..."
-mysql -e ";" >/dev/null 2>&1
-if [ "$?" -eq 0 ]; then
-    echo "Changing the authentication plugin of  MySQL..."
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_PASSWORD}'; FLUSH PRIVILEGES;"
-else
-    echo "Nothing to change."
-fi
-
-service redis-server restart
-
-service php7.4-fpm restart
-
-service nginx restart
+# Xdebug does not work using service instead of init.d
+/etc/init.d/php7.4-fpm start
 
 bash
-
