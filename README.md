@@ -44,6 +44,51 @@ No fim do Dockerfile existe uma instrução para executar o script `docker-start
 
 Para iniciar é só executar `docker-compose up --build` e começar a programar!
 
+## Executando comandos
+
+Para executar algum comando do PHP/Laravel, composer ou nodejs basta executar o comando na raiz do projeto detro da pasta `apps`. Veja alguns exemplos de possíveis comandos:
+
+```shell
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && php -S localhost:8000"
+
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && composer install"
+
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && php artisan inspire"
+
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && npm install"
+
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && npm run prod"
+
+docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && npm run watch"
+```
+
+Note que o `WORKDIR` definido no `Dockerfile` está na pasta que contém os projetos, por isso é necessário entrar na pasta (`cd $(basename $PWD)`) antes de executar o comando desejado.
+
+# Aliases
+
+Você pode deixar os comandos mais naturais se adicionar aliases no shell que você utiliza (bash, zsh, etc...):
+
+```shell
+alias php='function _php(){  docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && php $*"; }; _php'
+
+alias composer='function _composer(){  docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && composer $*"; };_composer'
+
+alias npm='function _npm(){  docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && npm $*"; };_npm'
+```
+
+Agora é só executar os comandos normalmente:
+
+```shell
+php -S localhost:8000
+
+php artisan migrate
+
+composer install
+
+npm run dev
+
+```
+
 ***
 
 Desenvolvido com ❤️ por [@jeanvcastro](https://github.com/jeanvcastro)

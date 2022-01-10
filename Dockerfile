@@ -45,5 +45,3 @@ COPY docker-start /usr/bin/
 RUN chmod +x /usr/bin/docker-start
 
 ENTRYPOINT [ "docker-start" ]
-
-EXPOSE 9000

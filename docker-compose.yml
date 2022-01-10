@@ -6,7 +6,8 @@ services:
     image: docker-php
     tty: true
     ports:
-      - 9000:9000
+      - 3000:3000 # for browsersync
+      - 3001:3001 # for browsersync ui
     environment:
       XDEBUG_MODE: ${XDEBUG_MODE:-off}
       XDEBUG_CONFIG: ${XDEBUG_CONFIG}
