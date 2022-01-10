@@ -16,7 +16,7 @@ Este é um ambiente de desenvolvimento PHP/Laravel 🐘 baseado em Docker 🐳.
 
 O propósito dessa imagem é criar um container para desenvolvimento (por favor, não use em produção!) e por isso o Xdebug 3 é instalado por padrão. Você pode definir as configurações usando as variáveis de ambiente `XDEBUG_MODE`, `XDEBUG_CONFIG`, `XDEBUG_SESSION` no arquivo `.env`. Caso queira desativar o debugger é só definir a variável `XDEBUG_MODE=off`.
 
-Para saber mais sobre essas configurações acesse a página oficial do Xdebug clicando [aqui](https://xdebug.org/docs/all_settings)
+Para saber mais sobre essas configurações acesse a página oficial do Xdebug clicando [aqui](https://xdebug.org/docs/all_settings).
 
 Feito isso agora é só configurar a sua IDE. Segue abaixo o exemplo da configuração para o PHPStorm.
 
@@ -64,7 +64,7 @@ docker-compose exec php-nodejs sh -c "cd $(basename $PWD) && npm run watch"
 
 Note que o `WORKDIR` definido no `Dockerfile` está na pasta que contém os projetos, por isso é necessário entrar na pasta (`cd $(basename $PWD)`) antes de executar o comando desejado.
 
-# Aliases
+## Aliases
 
 Você pode deixar os comandos mais naturais se adicionar aliases no shell que você utiliza (bash, zsh, etc...):
 
