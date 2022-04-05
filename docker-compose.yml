@@ -12,7 +12,6 @@ services:
       PHP_IDE_CONFIG: serverName=xdebug-docker
       XDEBUG_MODE: ${XDEBUG_MODE:-off}
       XDEBUG_CONFIG: ${XDEBUG_CONFIG}
-      XDEBUG_SESSION: ${XDEBUG_SESSION}
       TZ: ${TZ:-UTC}
     volumes:
       - ./apps:/var/www
