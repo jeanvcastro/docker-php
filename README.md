@@ -6,11 +6,11 @@ Este é um ambiente de desenvolvimento PHP/Laravel 🐘 baseado em Docker 🐳.
 
 ## Estrutura de Pastas
 
-| Pasta | Descrição |
-|--|--|
-| apps/ | É o local onde você vai clonar seu projetos |
+| Pasta  | Descrição                                                                                              |
+| ------ | ------------------------------------------------------------------------------------------------------ |
+| apps/  | É o local onde você vai clonar seu projetos                                                            |
 | mysql/ | Aqui você pode adicionar os seus backups de banco de dados. Eles serão importados em ordem alfabética. |
-| nginx/ | É o local onde vai definir os arquivos de configuração (hosts) do Nginx |
+| nginx/ | É o local onde vai definir os arquivos de configuração (hosts) do Nginx                                |
 
 ## Xdebug
 
@@ -22,7 +22,7 @@ Feito isso agora é só configurar a sua IDE. Segue abaixo o exemplo da configur
 
 1. Acesse o menu: File > Settings >Languages & Frameworks > PHP > Debug
 
-2. Em Xdebug, marque todas as caixas e selecione a porta. A porta padrão desse projeto é a 9003, ou alguma outra definida na variável `XDEBUG_CONFIG` no  `.env`
+2. Em Xdebug, marque todas as caixas e selecione a porta. A porta padrão desse projeto é a 9003, ou alguma outra definida na variável `XDEBUG_CONFIG` no `.env`
 
 3. Acesse o menu: File > Settings >Languages & Frameworks > PHP > Servers
 
@@ -30,9 +30,11 @@ Feito isso agora é só configurar a sua IDE. Segue abaixo o exemplo da configur
 
 5. Preencha os campos da seguinte maneira:
 
--  **Host:** www.meuapp.local
+- **Name:** xdebug-docker (o mesmo nome utilizado em serverName no docker-compose.yml)
 
--  **Use path mappings:** selecione a caixa
+- **Host:** www.meuapp.local
+
+- **Use path mappings:** selecione a caixa
 
 Ao lado da pasta projeto, preencha o campo **Absolute path on the server** com o caminho do seu projeto no container (Exemplo: /var/www/meu-app).
 
@@ -89,6 +91,6 @@ npm run dev
 
 ```
 
-***
+---
 
 Desenvolvido com ❤️ por [@jeanvcastro](https://github.com/jeanvcastro)
